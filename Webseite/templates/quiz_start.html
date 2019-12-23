@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}
+Quiz
+{% endblock %}
+
+
+{% block content %}
+<h1 id="wdh">Wiederholung</h1>
+<div class="quiz">
+  <div id="quiz"></div>
+</div>
+<button id="previous">Vorherige Frage</button>
+<button id="next">Nächste Frage</button>
+<button id="submit">Abschicken</button>
+<div id="points"></div>
+<br>
+<div id="detailed_results" class="detailed_results"></div>
+<a href="/{{next}}" class="btn btn-primary btn-pill align-self-center mr-2" id="forward">
+  <i class="fa fa-forward mr-1"></i>Weiter</a>
+<br />
+<br />
+{% endblock %}
+
+
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+<link href="{{url_for('.static', filename='css/quiz.css')}}" rel="stylesheet">
+
+{% endblock %}
+
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="{{url_for('.static', filename='js/quiz_start.js')}}"></script>
+{% endblock %}

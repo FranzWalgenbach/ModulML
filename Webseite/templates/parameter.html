@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}
+Parameter
+{% endblock %}
+
+{% block content %}
+  <!-- Content -->
+  <div class="content clearfix">
+    <div class="container mb-5" style="text-align: justify;">
+      <div class="section-title mr-auto ml-auto mt-3">
+        <h2 >Parameter</h2>
+        <br/>
+        <h5>Welche weiteren Parameter gibt es bei Decision Trees?</h5>
+        <p class="lead">
+          Parameter sind Eigenschaften des Entscheidungsbaums die durch den Programmierer festgelegt werden können. Dabei wird die Art und Weise wie der Baum aufgebaut wird durch die Werte der Parameter beeinflusst. Dadurch entstehen unterschiedliche Entscheidungsbäume die unterschiedliche Vorhersagen zur Folge haben (können). <br />
+          Die wichtigsten Parameter von Decision Trees (neben dem Schwellenwert) sind: <br />
+          <ul>
+            <li><i>max_depth</i></li>
+            <li><i>max_features</i></li>
+            <li><i>min_samples_leaf</i></li>
+            <li><i>min_samples_split</i></li>
+          </ul>
+        </p>
+        <h5>Wie wird der Entscheidungsbaum durch die Parameter beeinflusst?</h5>
+        <h6>1. max_depth</h6>
+        <p class="lead">Dieser Parameter gibt die maximale <b>Tiefe des Baums</b> an. Je größer die Tiefe des Baums ist, desto mehr Entscheidungen werden berücksichtigt. Damit steigt auch die Anzahl der möglichen Aufteilungen - der sogenannten <b>Splits</b> - der einzelnen Datensätze und somit die Menge an Informationen die aus den Daten gelernt werden.</p>
+        <div class="gallery">
+          <figure class="gallery__item gallery__item--1">
+            <img src="{{url_for('.static', filename='images/max_depth_1.png')}}" class="gallery__img" alt="Baum Tiefe 1">
+            <figcaption>Tiefe 1</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--2">
+            <img src="{{url_for('.static', filename='images/max_depth_2.png')}}" class="gallery__img" alt="Baum Tiefe 2">
+            <figcaption>Tiefe 2</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--3">
+            <img src="{{url_for('.static', filename='images/max_depth_3.png')}}" class="gallery__img" alt="Baum Tiefe 3">
+            <figcaption>Tiefe 3</figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--4">
+            <img src="{{url_for('.static', filename='images/max_depth_4.png')}}" class="gallery__img" alt="Baum Tiefe 4">
+            <figcaption>Tiefe 4</figcaption>
+          </figure>
+        </div>
+        <center>Dies sind vier mögliche Entscheidungsbäume mit den Tiefen 1 bis 4 zu den exakt selben Daten.<br /></center>
+        <h6>2. max_features</h6>
+        <p class="lead">Mit Hilfe von <i>max_features</i> lässt sich festlegen, wie viele Spalten, also Features, in jedem Split maximal berücksichtigt werden sollen um den besten Split zu finden. </p>
+
+        <h6>3. min_samples_leaf</h6>
+        <div class="row">
+          <div class="col-md-8">
+            <p class="lead">Der Parameter <i>min_samples_leaf</i> bestimmt die minimale Anzahl an Datensätzen die in einem Blatt des Entscheidungsbaums vorhanden sein müssen.
+            </p>
+          </div>
+          <div class="col-md-4">
+            <div class="alert alert-primary" role="alert" style="padding: 10px; border-radius: 5px;">
+              <h4 class="alert-heading"><i class="fa fa-question"></i></h4><hr>
+              <b> Was ist das Blatt eines Entscheidungsbaums? </b>
+            </div>
+          </div>
+        </div>
+        <p class="lead">
+          Von dieser Zahl ist der Aufbau des gesamten Entscheidungsbaums betroffen. Ein Split an egal welcher Position im Entscheidungsbaum wird nur dann berücksichtigt, wenn beim daraus resultierenden Baum sowohl im linken als auch im rechten Teilbaum mindestens so viele Datensätze vorhanden sind wie <i>min_samples_leaf</i> vorgibt. Wäre diese Bedingung nicht erfüllt, könnten in den folgenden Blättern unmöglich so viele Datensätze wie vorgegeben sein.<br />
+          <u>Beispiel:</u> <br />
+        </p>
+        <ul>
+          <li><p class="lead"><i>min_samples_leaf</i>=30</p></li>
+        </ul>
+        <figure>
+          <img src="{{url_for('.static', filename='images/wetter_min_samples_leaf_invalid.png')}}" alt="ungültiger Split">
+          <figcaption>ungültiger Split, da im linken Teilbaum weniger als 30 Datensätze verbleiben</figcaption>
+        </figure>
+
+        <h6>4. min_samples_split</h6>
+        <p class="lead">
+          Dieser Parameter ist sehr ähnlich zu <i>min_samples_<b>leaf</b></i>. Mit <i>min_samples_<b>split</b></i> wird die minimale Anzahl an Datensätzen festgelegt, die benötigt wird um in einem inneren Knoten einen Split durchzuführen. Auch hier können wir das gleiche Beispiel von oben nehmen. Wenn <i>min_samples_split</i>=30 gilt, so würde der Algorithmus im markierten Knoten keinen Split mehr durchführen, da hier bereits weniger als 30 Datensätze übrig sind. Stattdessen würde der Algorithmus davon ausgehen, dass alle Datensätze in diesem Knoten bereits zu der gleichen Kategorie (Kategorie 1) gehören. Dies entspricht der Vorhersage <i>Niederschlag</i>. An dieser Stelle würde der Baum sich also nicht mehr weiter verzweigen, sondern es würde ein Blatt entstehen mit 26 Datensätzen die alle als <i>Niederschlag</i> klassifiziert wurden.
+        </p>
+
+        <p class="lead">
+          Nach der Theorie über einige der möglichen Parameter wirst du auf der folgenden Seite die Möglichkeit haben, den Einfluss der Parameter auf die Genauigkeit und die Sensitivität selbst zu beobachten.
+        </p>
+        <a href="/tuning" class="btn btn-primary btn-pill align-self-center mr-2">
+          <i class="fa fa-forward mr-1"></i>Weiter</a>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}

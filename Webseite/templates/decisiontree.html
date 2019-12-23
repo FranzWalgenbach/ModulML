@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}
+Decision Tree
+{% endblock %}
+
+{% block content %}
+  <!-- Content -->
+  <div class="content clearfix">
+    <div class="container mb-5" style="text-align: justify;">
+      <div class="section-title mr-auto ml-auto mt-3">
+        <h2>Decision Trees</h2>
+        <br/>
+        <p class="lead">Einer der grundlegendsten Vertreter eines Algorithmus der Gruppe des <b>überwachten Lernens</b> ist der sogenannte Decision Tree Algorithmus. Dieser Algorithmus ist sehr vielseitig und kann sowohl zur Lösung von Regressions- als auch Klassifikationsproblemen genutzt werden. Wie der Name nahelegt, baut der Computer <b>Entscheidungsbäume</b> auf, um auf deren Grundlage Konsequenzen zu ziehen und so zu lernen. </p>
+        <br />
+        <h5>Was sind Entscheidungsbäume?</h5>
+        <p class="lead">
+          Ein Ausschnitt eines durch den Algorithmus entstandenen Entscheidungsbaums zu einer Wettervorhersage könnte beispielsweise wie folgt aussehen: <br />
+        </p>
+          <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+              <img src="{{url_for('.static', filename='images/wetter_tree_ohne_Sonne_part.png')}}" alt="Wettervorhersage" style="width:100%; height:100%; " >
+            </div>
+            <div class="col-md-2">
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-8">
+              <p class="lead">
+                Der Decision Tree Algorithmus hat die verfügbaren Wetterdaten <b>analysiert und gelernt</b>, welche Kriterien am aussagekräftigsten sind um herauszufinden ob Niederschläge am entsprechenden Tag wahrscheinlich sind oder nicht.
+                Die beste einzelne Frage zur Unterscheidung ist laut dem Decision Tree Algorithmus ob der Bedeckungsgrad des Himmels &le; 3,65 ist. Dies entspricht ungefähr der Unterscheidung zwischen <i>leicht bewölkt</i> und <i>wolkig</i>. Ist die Antwort auf diese Frage <i>Ja</i>, so ist in der Folge die Frage nach der maximalen Windgeschwindigkeit am besten zur Unterscheidung geeignet, ist die Antwort <i>Nein</i>, so bietet sich eine weitere Unterscheidung nach dem Bedeckungsgrad &le; 6,45 an - ob es also <i>stark bewölkt</i> ist.
+              </p>
+            </div>
+            <div class="col-md-4">
+              <br /> <br />
+              <div class="alert alert-primary" role="alert" style="padding: 10px; border-radius: 5px;">
+                <h4 class="alert-heading"><i class="fa fa-question"></i></h4><hr>
+                <b>Handelt es sich hier um ein Klassifikations- oder ein Regressionsproblem? </b>
+              </div>
+
+            </div>
+          </div>
+
+        <p class="lead">
+          Hätte man nur eine einzige Frage zur Verfügung um zu entscheiden, ob für den zu untersuchenden Tag Niederschlag zu erwarten ist, so würde man am besten die Frage stellen ob die Bedeckung des Himmels &le; 3,65 ist. Falls <i>ja</i>, so ist die Wahrscheinlichkeit sehr hoch, dass es keinen Niederschlag geben wird, falls <i>nein</i>, so wird es vermutlich Niederschlag geben. <br /> <br />
+          Um das in jedem Schritt beste Unterscheidungskriterium zu finden, benutzt der Decision Tree Algorithmus den sogenannten <b>Gini-Index</b>. Der Gini-Index ist eine Angabe für den Grad der <b>Homogenität</b> der verbleibenden Datensätze nach dem Split. Die Idee hinter dem Konzept der Homogenität ist, dass je gleichförmiger - also homogener - die Labels der Datensätze nach dem Split in den jeweiligen nachfolgenden Entscheidungen sind, desto besser ist das Kriterium zur Unterscheidung zwischen Tagen mit und ohne Niederschlag geeignet. Je niedriger der Gini-Index ist, desto homogener sind die Daten. Ein Wert von 0,5 bedeutet, dass gleich viele Datensätze mit dem Label <i>Niederschlag</i> wie mit dem Label <i>kein Niederschlag</i> übrig bleiben. Somit trägt ein Split mit einem Gini-Index von 0,5 nicht zur Unterscheidung bei.<br /><br />
+          Dieser Entscheidungsbaum, der durch den Decision Tree Algorithmus in der Trainingsphase erstellt wurde, bildet nun die <b>Grundlage für jegliche Entscheidungen des Programms</b>. Erhält das Programm die Daten für einen neuen Tag, so wird es zuerst prüfen, ob der Bedeckungsgrad &le; 3,65 ist. Dann wird es je nach Ergebnis die maximale Windgeschwindigkeit oder den Bedeckungsgrad genauer betrachten usw. Die erste Frage nennt man die <i>Wurzel</i> des Baums. Am Ende dieser Entscheidungs-Kette erreicht man ein sogenanntes <b>Blatt</b> des Entscheidungsbaums, welches dann angibt, ob (laut Algorithmus) Niederschlag vorhanden ist oder nicht. Die Namen <i>Wurzel</i> und <i>Blatt</i> leiten sich von der Vorstellung ab, dass die kleinsten Elemente eines (Entscheidungs-) Baums Blätter sind und alles aus der Wurzel entspringt. Aus dem Entscheidungsbaum oben ist ein solches Blatt beispielsweise: <br />
+        </p>
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+              <img src="{{url_for('.static', filename='images/wetter_tree_ohne_Sonne_blatt.png')}}" alt="Blatt des Baums" style="width:50%; height:100%;" >
+            </div>
+            <div class="col-md-4">
+              <div class="alert alert-primary" role="alert" style="padding: 10px; border-radius: 5px;">
+                <h4 class="alert-heading"><i class="fa fa-question"></i></h4><hr>
+                <b>Wie könnte der Algorithmus erkennen, dass er in einem Blatt angelangt ist? </b>
+              </div>
+            </div>
+          </div>
+          <br />
+        <p class="lead">
+          Ist man in einem Blatt angekommen steht die Entscheidung des Algorithmus fest. In diesem Fall würde der Algorithmus bei Erreichen des Blatts davon ausgehen, dass es keinen Niederschlag gibt. Er hat also nur anhand der beiden Fragen nach der Sonnenscheindauer und der mittleren Windgeschwindigkeit seine Entscheidung getroffen. Dies kann er deshalb tun, da es an allen 54 Tagen in den Trainingsdaten, die diese Kombination aus Bedeckungsgrad und Windgeschwindigkeit hatten, keinen Niederschlag gab (<i>class=0</i>).
+        </p>
+        <p class="lead">
+          Sobald der Entscheidungsbaum aufgebaut ist, kann das Programm Aussagen treffen, die auf diesem Baum basieren. Das Prinzip der Entscheidungsfindung wird <a href="#animationModal" data-toggle="modal" data-target="#animationModal">hier</a> verdeutlicht.
+        </p>
+        
+        <h5>Verschiedene Entscheidungsbäume möglich</h5>
+        <p class="lead">
+          Ist ein Entscheidungsbaum erstellt worden, so steht dieser für das Programm als Entscheidungsgrundlage fest. Allerdings ist das Erstellen dieses Baums nicht eindeutig und für die gleichen Daten können unterschiedliche Entscheidungsbäume existieren. <br />
+          So führt unter anderem die Reihenfolge in der die Kriterien durch den Algorithmus betrachtet werden, zur Entstehung unterschiedlicher Entscheidungsbäume. Ein weiterer Baum für die selben Wetterdaten sieht (ausschnittsweise) beispielsweise so aus: <br />
+        </p>
+        <div class="row">
+          <div class="col-md-2">
+          </div>
+          <div class="col-md-8">
+            <img src="{{url_for('.static', filename='images/wetter_tree_ohne_Sonne_gs_part.png')}}" alt="anderer Entscheidungsbaum" style="width:100%; height:100%;" >
+          </div>
+          <div class="col-md-2">
+          </div>
+        </div>
+        <br />
+        <br />
+        <!--<p class="lead">
+          Doch wie kann man nun beurteilen, welcher Entscheidungsbaum besser ist? <br />
+          Gini-Index erklären? Mit Formel und Beispiel, aber ohne Herleitung. Nur in Grundzügen, da keine Vorkenntnisse! Nur EINE mögliche Art der Erstellung des Baums <br />
+          am besten anderes Bild mit besserer Homogenität nach erstem Split. Blatt direkt nach zweitem Split vermeiden um rein nach Gini zu unterscheiden
+        </p>-->
+
+
+        <p class="lead">
+        </p>
+        <p class="lead">
+          Das gesamte Wissen, welches in den Entscheidungsbaum eingeflossen ist, hat er selbstständig <b>erlernt</b>. Somit ist der Entscheidungsbaum im Prinzip eine Visualisierung des Wissens.
+
+          Nachdem wir nun also einen Überblick über einen wichtigen Algorithmus des Maschinellen Lernens haben, schauen wir uns in den nächsten Kapiteln ein Beispielprojekt an.
+        </p>
+      </div>
+      <a href="/quiz_decisiontree" class="btn btn-primary btn-pill align-self-center mr-2">
+        <i class="fa fa-forward mr-1"></i>Weiter</a>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  jQuery(function () {
+    $('#animationModal').on('shown.bs.modal', function (e) {
+        $("#animationModalBody").html('');
+        $.ajax({
+            url: "/decisiontreeanimation",
+            datatype: "html",
+            success: function() {
+                $("#animationModalBody").html('');
+            },
+            error: function() {
+                $("#animationModalBody").html('<div class="alert alert-danger">Es ist ein Fehler aufgetreten!</div>');
+            }
+        });
+    });
+})
+</script>
+
+{%endblock%}

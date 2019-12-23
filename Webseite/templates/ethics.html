@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ethische Fragen
+{% endblock %}
+
+{% block content %}
+  <!-- Content -->
+  <div class="content clearfix">
+    <div class="container mb-5" style="text-align: justify;">
+      <div class="section-title mr-auto ml-auto mt-3">
+        <h2 >Ethische Fragen</h2>
+        <br/>
+        <p class="lead">
+          Während die Frage ob eine falsche Vorhersage im Falle der Regenprognose ehrlicherweise noch relativ unwichtig ist, gibt es Anwendungsgebiete Maschinellen Lernens, in denen die Antwort auf die Frage, ob lieber falsch positive oder falsch negative Ergebnisse zu präferieren sind, sehr schwer zu beantworten ist, aber gleichzeitig weitreichende Folgen hat.<br /><br />
+          Insbesondere bei <b>medizinischen Tests zur Diagnose von Krankheiten</b> ist die Entscheidung für die Bevorzugung von Sensitivität oder Spezifität essenziell. Bei der Diagnose von lebensbedrohlichen Krankheiten wie Krebs ergibt sich ein moralisches Dilemma. Möchte ich, dass möglichst alle Kranken auch als krank erkannt werden, damit sie behandelt werden können? Wiegt das die gravierende psychische Belastung all jener auf, die dadurch fälschlicherweise eine potenziell tödliche Diagnose erhalten und vom Schlimmsten ausgehen, bis ein hieran anschließender Test eventuell Entwarnung gibt? Riskiere ich die Gesundheit der falsch als krank diagnostizierten Personen, indem ich sie einer medikamentösen und/oder operativen Behandlung unterziehe, wenn es einen solchen anschließenden Test nicht gibt? Oder möchte ich dies verhindern auf die Gefahr hin, dass ich Erkrankte nicht rechtzeitig erkenne und ihnen nicht die rettende Behandlung ermögliche? Ist ein Test, der nicht sowohl eine sehr gute Sensitivität als auch Spezifität zulässt überhaupt ein sinnvoller Test? <br />
+        </p>
+        <a href="/cancer" class="btn btn-primary btn-pill align-self-center mr-2">
+          <i class="fa fa-forward mr-1"></i>Weiter</a>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}

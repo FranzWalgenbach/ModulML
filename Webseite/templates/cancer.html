@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}
+Diagnose von Brustkrebs
+{% endblock %}
+
+{% block content %}
+
+<div class="content clearfix">
+  <div class="container mb-5" style="text-align: justify;">
+    <div class="section-title mr-auto ml-auto mt-3">
+      <h2>Diagnose von Brustkrebs</h2>
+      <p class="lead">
+        Um die ethischen Fragestellungen zu verdeutlichen, gibt es hier die Möglichkeit selbst mit verschiedenen Algorithmen des Maschinellen Lernens zu arbeiten.
+        <br />
+      </p>
+      <div class="row">
+        <div class="col-md-8">
+          <p class="lead">
+            Für die Diagnose von Brustkrebs wurde mit Hilfe einer minimal invasiven Biopsie Gewebematerial aus dem vermuteten Tumor entnommen. Die darin enthaltenen Zellkerne wurden dann auf verschiedene Eigenschaften hin untersucht. Diese Untersuchungen wurden für alle in der Gewebeprobe enthaltenen Zellkerne durchgeführt und dann die jeweiligen Mittelwerte, Standardabweichungen und der schlechteste Wert als ein einzelner Datensatz benutzt. <br />
+            Die untersuchten Eigenschaften der Zellkerne sind:<br />
+          </p>
+        </div>
+        <div class="col-md-4">
+          <div class="alert alert-primary" role="alert" style="padding: 10px; border-radius: 5px;">
+            <h4 class="alert-heading"><i class="fa fa-question"></i></h4><hr>
+            <b>Was war nochmal die Standardabweichung? <br />
+              Tipp: Es hatte was mit Streuung zu tun
+            </b>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <ul>
+            <li>Radius (durchschnittliche Entfernung von der Mitte zum Rand des Zellkerns)</li>
+            <li>Textur (wie gleichmäßig ist der Farbverlauf?)</li>
+            <li>Umfang</li>
+            <li>Flächeninhalt</li>
+            <li>Gleichmäßigkeit der Radiuslängen</li>
+            <li>Kompaktheit (Umfang²/Flächeninhalt) - 1)</li>
+            <li>Konkavität des Rands (wie stark ist der Rand nach innen gewölbt?)</li>
+            <li>An wie vielen Stellen ist der Rand konkav?</li>
+            <li>Symmetrie</li>
+            <li>Fraktale Dimension (vereinfacht: wie komplex ist der Verlauf des Rands?)</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <center>
+            <figure>
+              <h5>Beispiel für entnommene Zellkerne</h5>
+              <img src="{{url_for('.static', filename='images/benign.png')}}" alt="gutartig" width="50%" height=50%>
+              gutartig
+              <img src="{{url_for('.static', filename='images/malign.png')}}" alt="bösartig" width=50% height="50%">
+              bösartig
+              <figcaption style="font-size: 0.7em">Quelle: https://www.inferentialthinking.com/chapters/17/5/Accuracy_of_the_Classifier.html</figcaption>
+            </figure>
+
+          </center>
+        </div>
+      </div>
+      <p class="lead">
+        Gib hier mögliche Patientendatensätze ein und wähle einen der zur Verfügung stehenden Algorithmen. Neben dem bereits besprochenen Decision-Tree-Algorithmus stehen noch weitere Algorithmen des überwachten Lernens zur Verfügung. Da es zu lange dauern würde alle 30 Eigenschaften einzugeben, beschränken wir uns hier auf die 9 aussagekräftigsten.<br />
+        Es lässt sich feststellen, dass bei manchen Eingaben je nach genutztem Algorithmus andere Diagnosen gegeben werden, obwohl die Daten exakt gleich sind. Was bedeutet das ethisch? Welchem Ergebnis sollte man mehr trauen - dem Ergebnis des Algorithmus mit der höchsten Genauigkeit oder dem Ergebnis das die meisten Algorithmen liefern?
+      </p>
+      <!-- Form Controls: Simple Forms -->
+      <div class="row">
+        <div class="col-md-12">
+          <form method="POST" id="inputCancer" action="{{url_for('predictcancer')}}">
+            <div class="row">
+              <u><b>Mittelwerte</b></u><br />
+            </div>
+            <div class="row">
+              <div class="col-md-3 mb-4">
+                <label for="texture_mean">Textur</label>
+                <div id="texture_mean">
+                  <input name="texture_mean" id="texture_mean" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label for="area_mean">Flächeninhalt</label>
+                <div id="area_mean">
+                  <input name="area_mean" id="area_mean" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label for="smoothness_mean">Gleichmäßigkeit der Radiuslängen</label>
+                <div id="smoothness_mean">
+                  <input name="smoothness_mean" id="smoothness_mean" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label for="concavity_mean">Konkavität</label>
+                <div id="concavity_mean">
+                  <input name="concavity_mean" id="concavity_mean" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <u><b>Standardabweichungen</b></u><br />
+            </div>
+            <div class="row">
+              <div class="col-md-3 mb-4">
+                <label for="area_se">Flächeninhalt</label>
+                <div id="area_se">
+                  <input name="area_se" id="area_se" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label for="concavity_se">Konkavität</label>
+                <div id="concavity_se">
+                  <input name="concavity_se" id="concavity_se" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <u><b>schlechtester Wert</b></u><br />
+            </div>
+            <div class="row">
+              <div class="col-md-3 mb-4">
+                <label for="smoothness_worst">Gleichmäßigkeit der Radiuslängen</label>
+                <div id="smoothness_worst">
+                  <input name="smoothness_worst" id="smoothness_worst" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label for="concavity_worst">Konkavität</label>
+                <div id="concavity_worst">
+                  <input name="concavity_worst" id="concavity_worst" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+                <label for="symmetry_worst">Symmetrie</label>
+                <div id="symmetry_worst">
+                  <input name="symmetry_worst" id="symmetry_worst" class="custom-slider-input" type="hidden">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3" style="margin: auto;">
+              <label for="model">Algorithmus (Gesamtgenauigkeit auf den Testdaten in %)</label>
+                  <select name="model" class="custom-select" id="model">
+                    <option value="simple" selected>Einfacher Decision Tree (88,60%)</option>
+                    <option value="random">auf Genauigkeit optimierter Decision Tree (90,35%)</option>
+                    <option value="knn">K nächste Nachbarn (88,60%)</option>
+                    <option value="rf">Random Forest (92,98%)</option>
+                    <option value="rf_opt">auf Sensitivität optimierter Random Forest (94,74%)</option>
+                  </select>
+            </div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resultCancerModal">Diagnose</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  jQuery(function () {
+    $('#resultCancerModal').on('shown.bs.modal', function (e) {
+        $("#resultCancerModalBody").html('<div class="alert alert-warning">Die Ergebnisse werden berechnet!</div>');
+        var formdata = $("#inputCancer").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/predictcancer",
+            data: formdata,
+            datatype: "html",
+            success: function(data) {
+                $("#resultCancerModalBody").html(data);
+            },
+            error: function() {
+                $("#resultCancerModalBody").html('<div class="alert alert-danger">Es ist ein Fehler aufgetreten! Bitte überprüfen Sie Ihre Eingaben!</div>');
+            }
+        });
+    });
+})
+</script>
+
+{%endblock%}

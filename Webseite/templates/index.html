@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+Maschinelles Lernen
+{% endblock %}
+
+{% block content %}
+<!-- Welcome Section -->
+<div class="welcome d-flex justify-content-center flex-column">
+  <div class="inner-wrapper mt-auto mb-auto">
+    <img src="{{url_for('.static', filename='images/sic.png')}}" alt="SIC" class="sic">
+    <img src="{{url_for('.static', filename='images/uds_logo.png')}}" alt="UdS" class="uds">
+    <!--<h1 class="slide-in">InfoLab Saar</h1>-->
+    <br /><br /><br />
+    <img src="{{url_for('.static', filename='images/infolabsaar.png')}}" style="width:50%;height:50%;" alt="InfoLab" class="infolab">
+    <h2 class="slide-in">Maschinelles Lernen</h2>
+    <div class="action-links slide-in">
+      <a href="/{{next}}" class="btn btn-primary btn-pill align-self-center mr-2">
+        <i class="fa fa-play mr-1"></i>Start</a>
+    </div>
+  </div>
+</div>
+
+<footer><a href="https://infolab.cs.uni-saarland.de/impressum"><span style="color:black;">Impressum</span></a> | <a href="https://infolab.cs.uni-saarland.de/datenschutzerklaerung"><span style="color:black;">Datenschutzerklärung</span></a> | <a href="/lizenzen"><span style="color:black;">Lizenzen</span></a> </footer>
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}

@@ -1,0 +1,9 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=<Sonnenschein?<br/>samples = 4<br/>>, fillcolor="#e5813900"] ;
+1 [label=<samples = 2<br/>class = Ja>, fillcolor="#399de5ff"] ;
+0 -> 1 [labeldistance=2.5, labelangle=-45, headlabel="Ja"] ;
+2 [label=<samples = 2<br/>class = Nein>, fillcolor="#e58139ff"] ;
+0 -> 2 [labeldistance=2.5, labelangle=45, headlabel="Nein"] ;
+}

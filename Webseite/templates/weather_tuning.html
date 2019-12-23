@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}
+Tuning
+{% endblock %}
+
+{% block content %}
+<!--<div class="welcome d-flex flex-column" style="overflow-y:auto; overflow-x:hidden">
+<div class="inner-wrapper mt-auto mb-auto">
+-->
+<div class="content clearfix">
+  <div class="container mb-5" style="text-align: justify;">
+    <div class="section-title mr-auto ml-auto mt-3">
+      <h2>Parameter anpassen</h2>
+      <p class="lead">
+        Auf dieser Seite kannst du die Auswirkungen der Parameter auf die Genauigkeit und Sensitivität beobachten.<br /> Gib dazu einfach die Werte der Parameter ein und klicke auf <i>Vorhersagen</i>!
+      </p>
+      <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+          <div class="alert alert-primary" role="alert" style="padding: 10px; border-radius: 5px;">
+            <h4 class="alert-heading"><i class="fa fa-exclamation"></i></h4><hr>
+            <b> Versuche die Kombination an Parametern zu finden, die die größte Genauigkeit erzielt! </b>
+          </div>
+        </div>
+        <div class="col-md-3">
+        </div>
+      </div>
+      <!-- Form Controls: Simple Forms -->
+      <div class="row">
+        <div class="col-md-12">
+
+          <form method="POST" id="inputWeather" action="{{url_for('weathertrain')}}">
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label for="max_depth">Maximale Tiefe des Decision Tree</label>
+                <input  name="max_depth" type="text" class="form-control" id="max_depth" placeholder="Maximale Tiefe">
+              </div>
+              <div class="col-md-6 mb-4">
+                <label for="min_samples_split">Minimale Anzahl an Datensätzen pro Split</label>
+                <input  name="min_samples_split" type="text" class="form-control" id="min_samples_split" placeholder="Minimale Anzahl an Datensätzen pro Split">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-4">
+                <label for="min_samples_leaf">Minimale Anzahl an Datensätzen pro Blatt</label>
+                <input  name="min_samples_leaf" type="text" class="form-control" id="min_samples_leaf" placeholder="Minimale Anzahl an Datensätzen pro Blatt">
+              </div>
+              <div class="col-md-6 mb-4">
+                <label for="max_features">Maximale Anzahl zu berücksichtigender Features pro Split</label>
+                <div id="max_features">
+                  <input type="hidden" class="custom-slider-input" name="max_features">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 mb-4">
+              </div>
+              <div class="col-md-6 mb-4">
+                <label for="threshold">Schwellenwert</label>
+                <div id="threshold">
+                  <input type="hidden" class="custom-slider-input" name="threshold">
+                </div>
+              </div>
+              <div class="col-md-3 mb-4">
+              </div>
+            </div>
+            <label for="features"><p class="lead">Passe hier an, welche Features der Algorithmus beachten soll.</p>
+              Aus Übersichtsgründen kannst du nur die 5 aussagekräftigsten Features verändern.</label>
+            <fieldset id="features">
+              <ul id="triple" style="list-style:none;" class="features">
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Wind_max" value="Wind_max" checked>
+                    maximale Windstärke
+                  </label>
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Temp_max_2m" value="Temp_max_2m" checked>
+                    maximale Temperatur in 2m Höhe
+                  </label>
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Schneehöhe" value="Schneehöhe" disabled="disabled" checked>
+                    Schneehöhe
+                  </label>
+                  <input type="hidden" name="Schneehöhe" value="Schneehöhe" />
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Bedeckungsgrad" value="Bedeckungsgrad" checked>
+                    Bedeckungsgrad
+                  </label>
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Dampfdruck" value="Dampfdruck" disabled="disabled" checked>
+                    Dampfdruck
+                  </label>
+                  <input type="hidden" name="Dampfdruck" value="Dampfdruck" />
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Temp_mittel" value="Temp_mittel" disabled="disabled" checked>
+                    mittlere Lufttemperatur
+                  </label>
+                  <input type="hidden" name="Temp_mittel" value="Temp_mittel" />
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Luftdruck" value="Luftdruck" checked>
+                    Luftdruck
+                  </label>
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Temp_min_2m" value="Temp_min_2m" disabled="disabled" checked>
+                    minimale Temperatur in 2m Höhe
+                  </label>
+                  <input type="hidden" name="Temp_min_2m" value="Temp_min_2m" />
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Wind_mittel" value="Wind_mittel" disabled="disabled" checked>
+                    mittlere Windstärke
+                  </label>
+                  <input type="hidden" name="Wind_mittel" value="Wind_mittel" />
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="rel_Feuchte" value="rel_Feuchte" checked>
+                    relative Luftfeuchtigkeit
+                  </label>
+                </li>
+                <li class="features">
+                  <label>
+                    <input type="checkbox" name="Temp_min_5cm" value="Temp_min_5cm" disabled="disabled" checked>
+                    minimale Temperatur in 5cm Höhe
+                  </label>
+                  <input type="hidden" name="Temp_min_5cm" value="Temp_min_5cm" />
+                </li>
+
+              </ul>
+            </fieldset>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#resultWeatherModal">Vorhersagen</button>
+          </form>
+          <br />
+          <br />
+            <a href="/{{next}}" class="btn btn-primary btn-pill align-self-center mr-2">
+            <i class="fa fa-forward mr-1"></i>Weiter</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript">
+  jQuery(function () {
+    $('#resultWeatherModal').on('shown.bs.modal', function (e) {
+        $("#resultWeatherModalBody").html('<div class="alert alert-warning">Die Ergebnisse werden berechnet!</div>');
+        var formdata = $("#inputWeather").serialize();
+        $.ajax({
+            type: "POST",
+            url: "/weathertrain",
+            data: formdata,
+            datatype: "html",
+            success: function(data) {
+                $("#resultWeatherModalBody").html(data);
+            },
+            error: function() {
+                $("#resultWeatherModalBody").html('<div class="alert alert-danger">Es ist ein Fehler aufgetreten! Bitte überprüfen Sie Ihre Eingaben!</div>');
+            }
+        });
+    });
+    $('#resultWeatherModal').on('hidden.bs.modal', function (e) {
+      var millis = $('#inputMillis').serialize();
+      $.ajax({
+        type: "POST",
+         url: '/deleteImage',
+         data: millis,
+         datatype: "html",
+         success: function(data) {
+
+         },
+         error: function() {
+             
+         }
+       });
+    });
+})
+</script>
+
+{%endblock%}

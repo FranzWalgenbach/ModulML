@@ -1,0 +1,22 @@
+{% block content %}
+
+
+<div class="card text-center">
+    {% if prediction ==  0 %}
+    <p class="card-text"><div class="alert alert-success" role="alert">
+  kein Brustkrebs
+</div>
+    {% elif prediction == 1 %}
+	    <p class="card-text"><div class="alert alert-danger" role="alert">
+        Brustkrebs
+</div>
+    {% elif prediction == 'internal Server Error' %}
+      <p class="card-text"><div class="alert alert-primary" role="alert">
+        Internal Server Error
+</div>
+    {% endif%}
+  </div>
+
+
+
+{% endblock %}

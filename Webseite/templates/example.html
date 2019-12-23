@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}
+Beispielprojekt
+{% endblock %}
+{% block content %}
+  <!-- Content -->
+  <div class="content clearfix">
+    <div class="container mb-5" style="text-align: justify;">
+      <div class="section-title mr-auto ml-auto mt-3">
+        <h2>Beispielprojekt</h2>
+        <br />
+        <h5>1. Daten finden</h5>
+        <p class="lead">
+          Um überhaupt Maschinelles Lernen nutzen zu können benötigen wir natürlich zunächst Daten. Häufig liegt hier schon eine der größten Herausforderungen im gesamten Prozess des Maschinellen Lernens. Um ausreichend gute Vorhersagen treffen zu können und eine hohe Genauigkeit zu erreichen benötigen die meisten Algorithmen <b>große Datenmengen</b>. Um sehr komplexe Aufgaben wie Spracherkennung zu erlernen befindet man sich schnell im Bereich von mehreren Millionen benötigten Datensätzen. <br />
+          In unserem kleinen Beispielprojekt schauen wir uns nochmals die schon angesprochenen Wetterdaten an. Glücklicherweise finden sich auf den Servern des Deutschen Wetterdienstes sehr viele historische Daten, sodass wir uns um die Quantität keine Sorgen machen müssen. Auch die Qualität der Daten ist für unsere Zwecke ausreichend, sofern wir keinen Fehler bei der Datenauswahl machen. Unser Ziel ist es für Saarbrücken aufgrund der Daten der letzten Jahre morgens eine Vorhersage darüber treffen zu können, ob es Niederschlag geben wird oder nicht, sofern wir bereits die anderen Daten des bisherigen Tages wie bisherige maximale Windgeschwindigkeit etc. wissen. Würden wir nun dafür auch die Daten einer weiter entfernten Stadt wie zum Beispiel Berlin nutzen, so hätten wir das Problem, dass unsere Daten unter Umständen nicht <b>repräsentativ</b> für Saarbrücken sind und somit durch unser Programm falsche Schlüsse gezogen werden. Also wählen wir lediglich die Daten aus Saarbrücken.
+        </p>
+        <h5>2. Überblick über Daten verschaffen</h5>
+        <p class="lead">
+          Wir haben uns nun also sowohl qualitativ als auch quantitativ ausreichend gute Daten besorgt. Nun müssen wir uns diese genauer ansehen. Alle Datensätze haben die folgende Form:</p>
+          <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CSVdataModal">Predict</button>--> <br />
+          <div class="row">
+            <div class="col-md-12">
+              <img src="{{url_for('.static', filename='images/wetterdaten_ohne_Sonne.png')}}" alt="Format der Daten" style="width:100%; height:100%; float:left;" >
+            </div>
+          </div>
+          <br />
+        <p class="lead">
+          In diesen Datensätzen sind also viele verschiedene Wetterdaten enthalten. Die Spalte <i>Niederschlagsform</i> nimmt dabei eine besondere Stellung ein. Sie ist unsere Zielvariable, also unser <b>Label</b>! <i>0</i> bedeutet dabei, dass kein Niederschlag vorhanden ist, <i>1</i> bedeutet Niederschlag. Mit Hilfe dieser Angabe können wir einen Algorithmus des überwachten Lernens nutzen.
+        </p>
+        <h5>3. Aufteilen in Trainings- und Testdaten</h5>
+        <p class="lead">
+          Nachdem wir eventuelle weitere Schritte unternommen haben, um die Daten für unseren Algorithmus vorzubereiten (z.B. Prüfen, ob alle Werte vorhanden sind), folgt das Aufteilen in Trainings- und Testdaten. Dieser Schritt ist extrem wichtig, um eine möglichst gute Vorhersagegenauigkeit zu erreichen. Leider kann es vorkommen, dass unser Programm zwar eine gute Genauigkeit auf den bereits gegebenen Daten erreicht, auf neuen unbekannten Daten jedoch sehr schlechte Ergebnisse erzielt. Um diesem Problem vorzubeugen gibt es die Möglichkeit, die gegebenen Daten in zwei Teile aufzuteilen. Standardmäßig nimmt man ca. 20%-30% der Datensätze und beachtet diese beim Trainieren des Programms zunächst nicht. Dies sind dann die sogenannten <b>Testdaten</b>. Die restlichen 70%-80%, die <b>Trainingsdaten</b>, werden dem Programm zum Lernen übergeben.<br />
+          <img id="train_testImg" src="{{url_for('.static', filename='images/train_test.png')}}" alt="Trainings- und Testdaten" style="display: block; margin-left: auto; margin-right: auto; width: 50%;"> <br />
+          Dieses Vorgehen versetzt den Entwickler auf einfache Art und Weise in die Lage die Qualität der Vorhersagen zu überprüfen. Die Testdaten (ohne ihre Labels) sind für das Programm "neue" Daten, dem Entwickler sind jedoch die richtigen Labels bekannt und somit ist die Genauigkeit des Programms feststellbar. Sollten hierbei zu große Ungenauigkeiten auffallen, können - und sollten - weitere Schritte zur Optimierung vorgenommen werden.
+        </p>
+        <h5>4. Auswahl des Algorithmus</h5>
+        <p class="lead">
+          Nun können wir uns überlegen, welcher Algorithmus für unsere Zwecke am sinnvollsten ist.
+          <br />
+          Wie wir bereits bemerkt haben können wir überwachtes Lernen nutzen und können beispielsweise einen Decision Tree vom Computer erstellen lassen.
+        </p>
+        <h5>5. Trainieren des Programms</h5>
+        <p class="lead">
+          Nun muss der Decision Tree erstellt werden. Dazu müssen wir dem Algorithmus die Trainingsdaten zur Verfügung stellen. Ein möglicher Decision Tree sieht dann wie folgt aus:
+          <br />
+          <img id="treeImg" src="{{url_for('.static', filename='images/wetter_tree_ohne_Sonne_alt.png')}}" alt="Decision Tree" style="width:100%;">
+          <br />
+          <br />
+          Wie wir sehen, kann solch ein Decision Tree selbst bei wenigen Merkmalen - in unserem Fall 11 - sehr komplex werden. Es wurde hier zur Visualisierung sogar nur ein Teil der Datensätze benutzt. Mit den gesamten Daten wäre der Baum für die Webseite wesentlich zu groß.
+
+          <br />
+          <br />
+          Als nächstes sehen wir uns erste Ergebnisse an, die wir mit dem gerade erstellten Decision Tree erreichen.
+        </p>
+
+
+
+
+      </div>
+      <a href="/results" class="btn btn-primary btn-pill align-self-center mr-2">
+        <i class="fa fa-forward mr-1"></i>Weiter</a>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}

@@ -1,0 +1,74 @@
+body:before {
+  left: -15vw;
+  top: -30%;
+  background: #fff;
+  background: repeating-linear-gradient(to right, #e2e7ef 0%, #ffffff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e7ef', endColorstr='#ffffff', GradientType=1);
+}
+
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(5, 5vw);
+    grid-gap: 15px;
+}
+
+.gallery__img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.gallery__item--1 {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.gallery__item--2 {
+    grid-column-start: 5;
+    grid-column-end: 8;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    height: 70%;
+}
+
+.gallery__item--3 {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 4;
+    grid-row-end: 6;
+}
+
+.gallery__item--4 {
+    grid-column-start: 5;
+    grid-column-end: 8;
+    grid-row-start: 4;
+    grid-row-end: 6;
+}
+
+
+ul.features{
+  width:100%;
+  margin-bottom:20px;
+  overflow:hidden;
+}
+li.features{
+  line-height:1.5em;
+  float:left;
+  display:inline;
+}
+#double li  { width:50%;}
+#triple li  { width:33.333%; }
+
+.zoom {
+  padding: 50px;
+  transition: transform .2s; /* Animation */
+  margin: 0 auto;
+}
+
+.zoom:hover {
+  transform: scale(2); 
+}

@@ -1,0 +1,33 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=< Temp_mittel &le; 12.45<br/>gini = 0.471<br/>samples = 385<br/>value = [146, 239]<br/>class = 1>, fillcolor="#399de563"] ;
+1 [label=< Temp_mittel &le; 8.65<br/>gini = 0.371<br/>samples = 232<br/>value = [57, 175]<br/>class = 1>, fillcolor="#399de5ac"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=< Temp_min_2m &le; -4.7<br/>gini = 0.334<br/>samples = 179<br/>value = [38, 141]<br/>class = 1>, fillcolor="#399de5ba"] ;
+1 -> 2 ;
+3 [label=<gini = 0.463<br/>samples = 11<br/>value = [7, 4]<br/>class = 0>, fillcolor="#e581396d"] ;
+2 -> 3 ;
+4 [label=<gini = 0.301<br/>samples = 168<br/>value = [31, 137]<br/>class = 1>, fillcolor="#399de5c5"] ;
+2 -> 4 ;
+5 [label=< Temp_max_2m &le; 17.4<br/>gini = 0.46<br/>samples = 53<br/>value = [19, 34]<br/>class = 1>, fillcolor="#399de570"] ;
+1 -> 5 ;
+6 [label=<gini = 0.369<br/>samples = 45<br/>value = [11, 34]<br/>class = 1>, fillcolor="#399de5ac"] ;
+5 -> 6 ;
+7 [label=<gini = 0.0<br/>samples = 8<br/>value = [8, 0]<br/>class = 0>, fillcolor="#e58139ff"] ;
+5 -> 7 ;
+8 [label=< Luftdruck &le; 980.51<br/>gini = 0.487<br/>samples = 153<br/>value = [89, 64]<br/>class = 0>, fillcolor="#e5813948"] ;
+0 -> 8 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+9 [label=<  Wind_max &le; 8.0<br/>gini = 0.469<br/>samples = 85<br/>value = [32, 53]<br/>class = 1>, fillcolor="#399de565"] ;
+8 -> 9 ;
+10 [label=<gini = 0.444<br/>samples = 24<br/>value = [16, 8]<br/>class = 0>, fillcolor="#e581397f"] ;
+9 -> 10 ;
+11 [label=<gini = 0.387<br/>samples = 61<br/>value = [16, 45]<br/>class = 1>, fillcolor="#399de5a4"] ;
+9 -> 11 ;
+12 [label=< Luftdruck &le; 985.555<br/>gini = 0.271<br/>samples = 68<br/>value = [57, 11]<br/>class = 0>, fillcolor="#e58139ce"] ;
+8 -> 12 ;
+13 [label=<gini = 0.226<br/>samples = 54<br/>value = [47, 7]<br/>class = 0>, fillcolor="#e58139d9"] ;
+12 -> 13 ;
+14 [label=<gini = 0.408<br/>samples = 14<br/>value = [10, 4]<br/>class = 0>, fillcolor="#e5813999"] ;
+12 -> 14 ;
+}

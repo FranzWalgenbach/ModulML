@@ -1,0 +1,2 @@
+max_depth,min_samples_split,min_samples_leaf,max_features,Wind_max,Wind_mittel,Schneehöhe,Bedeckungsgrad,Dampfdruck,Luftdruck,Temp_mittel,rel_Feuchte,Temp_max_2m,Temp_min_2m,Temp_min_5cm,accuracy_train,accuracy_test
+Standardwert,2,1,9,0,1,1,0,1,1,1,1,1,1,1,1.0,0.7032379300375832

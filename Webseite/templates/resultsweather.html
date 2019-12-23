@@ -1,0 +1,102 @@
+{% block content %}
+<div class="card text-center">
+    <p class="card-text">
+      <div class="alert" role="alert" style="text-align: justify;">
+        Auf dem Trainings-Datensatz erreichst du mit deinen Parametern eine Genauigkeit von <b>{{accuracy_train}}</b> und eine Sensitivität von <b>{{recall_train}}</b>.
+        <br /><br />
+        Auf dem Test-Datensatz erreichst du mit deinen Parametern eine Genauigkeit von <b>{{accuracy_test}}</b> und eine Sensitivität von <b>{{recall_test}}</b>.
+        <br /><br />
+        <h6>Erzeugter Entscheidungsbaum: </h6>
+        <div id="tree" style="margin-left: auto; margin-right: auto;">
+          <form method="POST" id="inputMillis">
+            <input id="millis" name="millis" type="hidden" value={{millis}}>
+          </form>
+          {% if renderImage %}
+            {% if zoom %}
+              <div>
+                <img class="img-responsive"src="{{url_for('.static', filename='temp/dt_' ~ millis ~ '.png')}}" alt="Entscheidungsbaum" style="max-width:100%;">
+              </div>
+            {% else %}
+              <div>
+                <img class="img-responsive"src="{{url_for('.static', filename='temp/dt_' ~ millis ~ '.png')}}" alt="Entscheidungsbaum" style="max-width:100%;">
+              </div>
+            {% endif %}
+          {% else %}
+            Der Baum ist zu groß für die Anzeige. Es werden nur Bäume mit einer Tiefe &le; 6 angezeigt.
+          {% endif %}
+        </div>
+        <br />
+        <h6>Die größte <u>Genauigkeit</u> bisher wurde mit diesen Parametern erreicht</h6>
+        <u>Trainingsdaten:</u><br />
+        Genauigkeit: <b>{{best_accuracy_train}}</b><br />
+        Sensitivität: <b>{{recall_with_best_accuracy_train}}</b><br />
+        <ul style="list-style:none;">
+          <li>max_depth={{max_depth_train}}</li>
+          <li>min_samples_split={{min_samples_split_train}}</li>
+          <li>min_samples_leaf={{min_samples_leaf_train}}</li>
+          <li>max_features={{max_features_train}}</li>
+          <li>Schwellenwert={{threshold_train}}</li>
+        </ul>
+        <br />
+        <ul id="triple" style="list-style:none;" class="features">
+          {% for feature in feature_list_train %}
+            {% if feature_list_train[feature]==1 %}
+              <li class="features">
+                <label>
+                  <input type="checkbox" name="{{feature}}" value="{{feature}}" disabled="disabled" checked>
+                  {{feature}}
+                </label>
+              </li>
+            {% endif %}
+
+            {% if feature_list_train[feature]==0 %}
+              <li class="features">
+                <label>
+                  <input type="checkbox" name="{{feature}}" value="{{feature}}" disabled="disabled">
+                  {{feature}}
+                </label>
+              </li>
+            {% endif %}
+
+          {% endfor %}
+
+        </ul>
+
+        <u>Testdaten:</u><br />
+        Genauigkeit:<b> {{best_accuracy_test}}</b><br />
+        Sensitivität: <b>{{recall_with_best_accuracy_test}}</b><br />
+        <ul style="list-style:none;">
+          <li>max_depth={{max_depth_test}}</li>
+          <li>min_samples_split={{min_samples_split_test}}</li>
+          <li>min_samples_leaf={{min_samples_leaf_test}}</li>
+          <li>max_features={{max_features_test}}</li>
+          <li>Schwellenwert={{threshold_test}}</li>
+
+        </ul>
+        <ul id="triple" style="list-style:none;" class="features">
+          {% for feature in feature_list_test %}
+            {% if feature_list_test[feature]==1 %}
+              <li class="features">
+                <label>
+                  <input type="checkbox" name="{{feature}}" value="{{feature}}" disabled="disabled" checked>
+                  {{feature}}
+                </label>
+              </li>
+            {% endif %}
+
+            {% if feature_list_test[feature]==0 %}
+              <li class="features">
+                <label>
+                  <input type="checkbox" name="{{feature}}" value="{{feature}}" disabled="disabled" >
+                  {{feature}}
+                </label>
+              </li>
+            {% endif %}
+
+          {% endfor %}
+
+        </ul>
+      </div>
+  </div>
+  </div>
+{% endblock %}

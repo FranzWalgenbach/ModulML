@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}
+Einführung
+{% endblock %}
+
+{% block content %}
+<!--Einführungstext: <br>
+<ul>
+  <li>Wo findet sich Maschinelles Lernen im Alltag?</li>
+  <li>Beschreibung des Moduls</li>
+  <li>erster Fragenblock zu weiteren Beispielen für ML im Alltag</li>
+</ul>-->
+  <!-- Content -->
+  <div class="content clearfix">
+    <div class="container mb-5" style="text-align: justify;">
+      <div class="section-title mr-auto ml-auto mt-3">
+        <h2>Einführung</h2>
+        <br/>
+        <p class="lead">Als ein Teilgebiet der Künstlichen Intelligenz beschäftigt sich Maschinelles Lernen, <b>ML</b>, mit dem <b>Erkennen von Mustern</b> in Daten. Dabei sind meist große Datenmengen nötig, um dem Computer zu ermöglichen die zugrundeliegenden Muster und Gesetzmäßigkeiten zu erkennen. Auf der Basis dieser Muster kann der Computer <b>Lösungen entwickeln</b> und im Anschluss <b>Vorhersagen</b> zu den Eigenschaften neuer Daten <b>treffen</b>. <br />
+        Mittlerweile finden sich immer mehr Programme die Maschinelles Lernen nutzen. Im Alltag bist du sicherlich - vielleicht unbewusst - bereits mit Maschinellem Lernen in Kontakt gekommen und hast davon profitiert.<br />
+        Beispiele für ML im Alltag sind:</p>
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="lead">
+              <li>Spam-Filter in Email-Programmen</li>
+              <li>Texterkennung von Handschriften</li>
+              <li>Produktempfehlungen beim Online Shopping</li>
+              <li>...</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <div class="alert alert-primary" role="alert" style="padding: 10px; border-radius: 5px;">
+              <h4 class="alert-heading"><i class="fa fa-question"></i></h4><hr>
+              <b> Fallen dir selbst noch weitere ähnliche Beispiele ein? </b>
+            </div>
+
+          </div>
+        </div>
+        <br><br><br>
+        <h2>Verschiedene Arten des Maschinellen Lernens</h2>
+        <br />
+        <p class="lead">Beim Maschinellen Lernen werden je nach Anwendungsgebiet eine Vielzahl unterschiedlicher Algorithmen angewandt. Diese sind für das Erkennen der Muster zuständig und lassen sich verschiedenen Kategorien zuordnen.
+        Hauptächlich unterscheidet man die Kategorien
+        <ul class="lead">
+          <li>überwachtes Lernen</li>
+          <li>unüberwachtes Lernen</li>
+          <li>bestärkendes Lernen</li>
+        </ul>
+        <h5>überwachtes Lernen</h5>
+        <div class="row">
+          <div class="col-md-10">
+            <p class="lead">
+              Überwachtes Lernen kennzeichnet sich dadurch, dass bei den Daten, auf deren Basis der verwendete Algorithmus die Gesetzmäßigkeiten erkennen und somit lernen soll, das Ergebnis als sogenanntes <b>Label</b> mitgegeben wird.<br />
+              Beispielsweise werden bei der Bilderkennung von handgeschriebenen Zahlen viele Beispiele der einzelnen Zahlen gesammelt und (oft von Hand) als <i>1, 2, 3, 4, ...</i> markiert. Diese Bilder und ihre zugehörigen Labels werden dann dem Algorithmus als <b>Trainingsdaten</b> übergeben. Der Algorithmus analysiert den Datensatz und erkennt die Muster und Eigenschaften, die zum Beispiel eine Zahl als <i>5</i> klassifizieren. Nach diesem Training ist das Programm dann in der Lage mehr oder weniger gut - je nach Qualität und Menge der Daten, sowie verwendetem Algorthmus - neue und unbekannte Bilder von Zahlen in die Kategorien <i>1, 2, 3, usw.</i> einzuordnen. Das Programm hat also gelernt welche Eigenschaften das Aussehen einer bestimmten Zahl hat und kann dieses Wissen anwenden.
+
+
+              <!--Beispielsweise werden für einen Spam-Filter viele Mails gesammelt und (von Hand) als <i>Spam</i> oder <i>kein Spam</i> markiert. Diese Mails werden dann dem Algorithmus als <b>Trainingsdaten</b> übergeben. Der Algorithmus analysiert den Datensatz und erkennt die Muster und Eigenschaften die eine Mail als <i>Spam</i> klassifizieren. Nach diesem Training ist das Programm dann in der Lage mehr oder weniger gut - je nach Qualität und Menge der Daten, sowie verwendetem Algorthmus - neue und unbekannte Mails in die Kategorien <i>Spam</i> und <i>kein Spam</i> einzuordnen. Das Programm hat also gelernt welche Eigenschaften eine Spam-Mail hat und kann dieses Wissen anwenden.-->
+
+            </p>
+          </div>
+          <div class="col-md-1">
+            <img src="{{url_for('.static', filename='images/mnist_9.png')}}" alt="9" style="width:100%;" >
+            <figcaption>Label: 9</figcaption>
+            <img src="{{url_for('.static', filename='images/mnist_0.png')}}" alt="9" style="width:100%;" >
+            <figcaption>Label: 0</figcaption>
+
+          </div>
+          <div class="col-md-1">
+            <img src="{{url_for('.static', filename='images/mnist_4.png')}}" alt="4" style="width:100%;">
+            <figcaption>Label: 4</figcaption>
+            <img src="{{url_for('.static', filename='images/mnist_2.png')}}" alt="9" style="width:100%;" >
+            <figcaption>Label: 2</figcaption>
+
+          </div>
+        </div>
+
+        <h5>unüberwachtes Lernen</h5>
+        <p class="lead">
+          Beim unüberwachten Lernen werden im Gegensatz zum überwachten Lernen dem Computer keine vorgefertigten Beispiele übergeben. Stattdessen erfolgt die Erkennung der Muster und vor allem die Einteilung in verschiedene Kategorien automatisch. Es finden sich in den Trainingsdaten also <b>keine Labels</b>. Ein Beispiel wäre die Einteilung der Kunden eines großen Elektronik-Online-Shops in verschiedene Käufergruppen. Der Algorithmus erkennt ohne Vorgabe die Gemeinsamkeiten und Unterschiede zwischen den einzelnen Kunden und gruppiert diese. So könnte er in unserem Beispiel erkennen, dass 55% der Kunden männlich sind, bevorzugt am Abend einkaufen und sich dabei hauptsächlich für Fernseher und Laptops interessieren, wohingegen 10% der weiblichen Kunden das größte Interesse an Smartphones zeigen. Somit können verschiedene Gruppen gebildet werden, ohne dass durch den Menschen eine Vorgabe gegeben wird. Der Algorithmus hat also selbstständig gelernt ohne Überwachung.
+        </p>
+
+        <h5>bestärkendes Lernen</h5>
+        <p class="lead">
+          Der Name bestärkendes Lernen ergibt sich daraus, dass hier der Algorithmus bestimmte Vorgaben in Form von <b>Belohnungen</b> und <b>Bestrafungen</b> erhält. Der Algorithmus führt selbstständig verschiedene Aktionen auf den gegebenen Daten durch und erhält damit vorher definierte Belohnungen oder - im Falle nicht erwünschter Aktionen - Bestrafungen. Das Ziel ist es, dass der Algorithmus die beste Strategie erlernt, die es ihm ermöglicht eine möglichst hohe Belohnung zu erhalten. Eines der bekanntesten Beispiele für bestärkendes Lernen ist die <i>AlphaGo-KI</i> von Deepmind, die 2016 das äußerst komplexe Strategiespiel <i>Go</i> erlernte, indem sie mehrere Millionen Go-Spiele analysierte und gegen sich selbst spielte um die beste Strategie zu finden. Sie war so erfolgreich, dass sie sogar den amtierenden Weltmeister Lee Sedol schlagen konnte. Diese Art des Maschinellen Lernens kommt dem menschlichen Lernen relativ nahe.
+        </p>
+
+        <br />
+        <br />
+        <!--<h2>Klassifikation vs. Regression</h2>
+        <br />
+        <p class="lead">
+          Eine weitere wichtige Unterscheidung zwischen den verschiedenen ML-Algorithmen stellt die Frage dar, ob der Algorithmus eine Regression oder eine Klassifikation vornimmt. Manche Algorithmen sind sogar in der Lage sowohl zur Regression als auch zur Klassifikation eingesetzt zu werden. <br />
+          Bei der Klassifikation geht es um die Einteilung der Daten in verschiedene Gruppen oder Klassen. Die oben genannten Beispiele zum überwachten und unüberwachten Lernen sind typische Klassifikationsaufgaben. Die einzelnen Klassen, die beim überwachten Lernen die Labels darstellen, sind klar unterscheidbar und voneinander in verschiedene Gruppen abzugrenzen. <br />
+          Etwas anders verhält sich dies bei Regressionsaufgaben. Hier sind die Labels kontinuierlich. So könnte die Aufgabe eines Regressionsalgorithmus darin bestehen, auf Grundlage der verfügbaren Gehaltslisten einer Branche, das voraussichtliche Gehalt eines einzelnen Arbeitnehmers nach der Eingabe seiner Qualifikationen und den Firmendaten zu bestimmen. Das bedeutet, dass die Algorithmen keine Klassen sondern bestimmte Werte vorhersagen.
+        </p>
+      </div>-->
+      <a href="/quiz_start" class="btn btn-primary btn-pill mr-2">
+        <i class="fa fa-forward mr-1"></i>Weiter</a>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock %}
+
+{% block styles %}
+{{super()}} <!-- Allows Javascripts and other styles to be inclusive in bootstrap -->
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
